@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="customerSearchApp" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Customer Search Application</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="NavigatorStandards.css"/>
+  <link rel="stylesheet" href="../node_modules/angular-ui-grid/ui-grid.css"/>
+</head>
+
+<body>
+<form novalidate>
+<div ng-controller="CustomerSearchController">
+  <table width="100%" border="1" align="center" cellspacing="1" cellpadding="1">
+    <tr>
+      <td class="stdPageHeader" align="center" id="header_title">Customer Search</td>
+    </tr>
+  </table>
+  <table width="70%" border="0" align="center" cellspacing="1" cellpadding="1">
+  <tr>
+    <td width="100" class="stdLabelText" id="accountLabel">Account</td>
+    <td class="stdDisplayText">
+      <input type="text" ng-model="customerSearchRequest.accountId" size="15" maxlength="13" class="stdInputText" tabindex="1"/>
+    </td>
+    <td width="100" class="stdLabelText">Account Types</td>
+    <td class="stdDisplayText">
+        <input type="checkbox" id="accountTypePickup" ng-checked="selectAccountType('P')" ng-click="changeAccountType('P')"/>
+        <label for="accountTypePickup" class="stdlabeltext">Pickup/Delivery</label>
+
+        <input type="checkbox" id="accountTypeBillTo" ng-checked="selectAccountType('B')" ng-click="changeAccountType('B')"/>
+        <label for="accountTypeBillTo" class="stdlabeltext">Bill To</label>
+
+        <input type="checkbox" id="accountTypeCorporate" ng-checked="selectAccountType('C')" ng-click="changeAccountType('C')"/>
+        <label for="accountTypeCorporate" class="stdlabeltext">Corporate</label>
+
+        <input type="checkbox" id="accountTypeFuture" ng-checked="selectAccountType('F')" ng-click="changeAccountType('F')"/>
+        <label for="accountTypeFuture" class="stdlabeltext">Future</label>
+    </td>
+  </tr>
+  <tr>
+    <td class="stdLabelText" id="name1Label">Name 1</td>
+    <td class="stdDisplayText">
+      <input type="text" ng-model="customerSearchRequest.name1" size="30" maxlength="30" class="stdInputText" tabindex="2"/>
+    </td>
+    <td class="stdLabelText" id="name2Label">Name 2</td>
+    <td class="stdDisplayText">
+      <input type="text" ng-model="customerSearchRequest.name2" size="30" maxlength="30" class="stdInputText" tabindex="5"/>
+    </td>
+  </tr>
+  <tr>
+    <td width="100" class="stdLabelText" id="cityLabel">City</td>
+    <td class="stdDisplayText">
+      <input type="text" ng-model="customerSearchRequest.city" size="20" maxlength="20" class="stdInputText"  tabindex="4"/>
+    </td>
+    <td width="100" class="stdLabelText" id="addressLabel">Address</td>
+    <td class="stdDisplayText" nowrap="nowrap" colspan="1">
+      <input type="text" ng-model="customerSearchRequest.address" size="30" maxlength="30" class="stdInputText" tabindex="6"/>
+    </td>
+  </tr>
+  <tr>
+    <td width="100" class="stdLabelText" id="stateLabel">State/Province</td>
+    <td class="stdDropDown">
+      <div ng-controller="StateCountryController">
+          <select data-ng-options="i.id as format(i) for i in stateCountries" ng-model="customerSearchRequest.stateCountry">
+          </select>
+      </div>
+    </td>
+
+    <td class="stdLabelText" id="zipLabel">ZIP Code</td>
+    <td class="stdDisplayText" nowrap="nowrap">
+        <input type="text" ng-model="customerSearchRequest.zip" size="6" maxlength="6" class="stdInputText" tabindex="7"/>
+    </td>
+  </tr>
+  <tr>
+    <td height="30px" class="stdDisplayText" colspan="4" align="center">
+        <button ng-click="search()">Search</button>
+        <button ng-click="clear()">Clear Entries</button>
+    </td>
+  </tr>
+</table>
+
+  </br>
+  {{customerSearchRequest}}
+  </br>
+  </br>
+
+  <div class="ui-grid-top-panel" style="text-align: center">Customer Search Results</div>
+  <div ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+
+</div>
+</form>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="app.js"></script>
+<script src="../node_modules/angular-ui-grid/ui-grid.js"></script>
+</body>
+</html>
